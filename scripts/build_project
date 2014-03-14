@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+import os, os.path, uuid, subprocess, time, sys, copy
+
+# Compute paths
+script_dir = os.path.dirname(os.path.realpath(__file__))
+cxx_wrapper_script = os.path.join(script_dir, 'cxx_wrapper')
+cxx_wrapper_output_dir = os.path.join('/tmp', str(uuid.uuid1()))
+os.mkdir(cxx_wrapper_output_dir)
+
+print 'Output directory: %s' % cxx_wrapper_output_dir
+
+# Run catkin_make
+cmake_env = copy.copy(os.environ)
+cmake_env['CXX'] = cxx_wrapper_script
+cmake_env['CXX_WRAPPER_OUTPUT_DIR'] = cxx_wrapper_output_dir
+p = subprocess.Popen(['catkin_make'], stdout=sys.stdout, env=cmake_env)
+p.wait()
