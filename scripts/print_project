@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+import sys, subprocess, argparse, os, os.path, uuid
+import yaml
+
+def print_input_files(output_file, input_file_dict, recursion_level)
+
+cxx_wrapper_output_dir = os.environ['CXX_WRAPPER_OUTPUT_DIR']
+
+# Build a dictionary of input files for each output file
+input_files = {}
+for filename in os.listdir(cxx_wrapper_output_dir):
+	f = open(os.path.join(cxx_wrapper_output_dir, filename))
+	d = yaml.load(f)
+	f.close()
+	output_file = d['output_file']
+	if output_file is None:
+		continue
+	input_files[output_file] = d['input_files']
+
+	
